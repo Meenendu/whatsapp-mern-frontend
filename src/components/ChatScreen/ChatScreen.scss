@@ -1,0 +1,120 @@
+@import "../../variables.scss";
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 70%;
+
+  &__header {
+    background-color: $header-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+
+    &__left {
+      display: flex;
+      align-items: center;
+
+      span {
+        color: $font-color;
+        margin-left: 15px;
+        flex-grow: 1;
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+
+      & .MuiSvgIcon-root {
+        color: $icon-color;
+        font-size: 25px;
+      }
+    }
+  }
+
+  &__body {
+    flex: 1;
+    background-image: url("../../assets/whatsapp-bg.png");
+    background-repeat: repeat;
+    background-position: center;
+    object-fit: cover;
+    padding: 30px;
+    overflow-y: auto;
+
+    &__message {
+      position: relative;
+      background-color: $incoming-message-bg-color;
+      padding: 6px 7px 8px 9px;
+      width: fit-content;
+      border-radius: 10px;
+      margin-bottom: 15px;
+
+      &__name {
+        font-size: 12px;
+        color: $incoming-message-name-color;
+      }
+
+      &__msg {
+        color: $message-color;
+
+        &__time {
+          font-size: 12px;
+          margin-left: 10px;
+          position: relative;
+          top: 5px;
+          color: $font-color-secondary !important;
+        }
+      }
+    }
+
+    &__received-message {
+      margin-left: auto;
+      background-color: $user-message-bg-color;
+
+      &__name {
+        display: none !important;
+      }
+    }
+  }
+
+  &__message-pannel {
+    background-color: $message-pannel-background;
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+
+    &__container {
+      background-color: $message-input-color;
+      display: flex;
+      align-items: center;
+      border-radius: 50px;
+      padding: 12px 16px;
+      flex: 1;
+
+      input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    & .MuiSvgIcon-root {
+      color: $icon-color;
+      font-size: 30px;
+      margin: 7px 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .chat {
+    flex: 60%;
+  }
+}

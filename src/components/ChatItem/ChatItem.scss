@@ -1,0 +1,35 @@
+@import "../../variables.scss";
+
+.chat-item {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $border-color2;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $chat-hover-color;
+  }
+
+  &__info {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+
+    span {
+      color: white;
+      position: relative;
+      flex-grow: 1;
+      font-size: 18px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: $font-color;
+    }
+    p {
+      color: white;
+      color: $font-color-secondary;
+    }
+  }
+}
