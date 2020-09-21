@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import "./App.scss";
-import ChatScreen from "./components/ChatScreen";
-import Sidebar from "./components/SideBar";
-import Login from "./components/Login";
-import { auth, provider } from "./utils/firebase";
+import MainScreen from "./pages/MainScreen";
+import Login from "./pages/Login";
 import { useContextState } from "./utils/stateProvider";
 import { actionTypes } from "./utils/reducer";
+import socket from "./utils/socketInstance";
 
 function App() {
-  const [state, dispatch] = useContextState();
+  const [{ user }, dispatch] = useContextState();
 
   useEffect(() => {
     const user = window.localStorage.getItem("user");
@@ -19,34 +18,20 @@ function App() {
         user: JSON.parse(user),
       });
     }
-  }, []);
+  }, [dispatch]);
 
-  const handleLogin = () => {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result);
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
-        window.localStorage.setItem("user", JSON.stringify(result.user));
-      })
-      .catch((e) => console.log(e));
-  };
+  useEffect(() => {
+    if (user) {
+      socket.emit("user-joined", {
+        name: user.displayName,
+        _id: user.uid,
+        imageUrl: user.photoURL,
+        email: user.email,
+      });
+    }
+  }, [user]);
 
-  return (
-    <div className="app">
-      {!state.user ? (
-        <Login onClick={handleLogin} />
-      ) : (
-        <div className="app__container">
-          <Sidebar />
-          <ChatScreen />
-        </div>
-      )}
-    </div>
-  );
+  return <div className="app">{!user ? <Login /> : <MainScreen />}</div>;
 }
 
 export default App;

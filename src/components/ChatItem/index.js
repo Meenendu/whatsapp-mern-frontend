@@ -2,13 +2,13 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "./ChatItem.scss";
 
-function ChatItem() {
+function ChatItem({ data, onClick }) {
   return (
-    <div className="chat-item">
+    <div className="chat-item" onClick={() => onClick(data)}>
       <Avatar />
 
       <div className="chat-item__info">
-        <span>Name sahjdas xj asjx jas xjafdsf dfs dfsd</span>
+        <span>{data.room}</span>
         <p>Last message</p>
       </div>
     </div>

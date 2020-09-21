@@ -21,7 +21,7 @@
       color: white;
       position: relative;
       flex-grow: 1;
-      font-size: 18px;
+      font-size: 100%;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -29,6 +29,7 @@
     }
     p {
       color: white;
+      font-size: 14px;
       color: $font-color-secondary;
     }
   }
