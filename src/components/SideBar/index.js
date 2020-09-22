@@ -13,12 +13,14 @@ function SideBar() {
   const [{ user }, dispatch] = useContextState();
   const [rooms, setRooms] = useState([]);
   const [, forcerender] = useState(0);
+  const [filteredRoms, setFilteredRooms] = useState([]);
 
   useEffect(() => {
     socket.on("new-room", (data) => {
       console.log(data);
       if (rooms) {
         rooms.unshift(data);
+        filteredRoms.unshift(data);
         forcerender((x) => x + 1);
       }
     });
@@ -29,6 +31,7 @@ function SideBar() {
       const url = "/room";
       const response = await apiRequest(url, "get");
       setRooms(response);
+      setFilteredRooms(response);
     })();
   }, []);
 
@@ -52,6 +55,15 @@ function SideBar() {
     });
   };
 
+  const handleSearch = (e) => {
+    if (e.target.value) {
+      const x = rooms.filter((item) => item.room.includes(e.target.value));
+      setFilteredRooms(x);
+    } else {
+      setFilteredRooms(rooms);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -73,12 +85,16 @@ function SideBar() {
       <div className="sidebar__search">
         <div className="sidebar__search__container">
           <Search />
-          <input type="text" placeholder="Search or start a new chat" />
+          <input
+            type="text"
+            placeholder="Search or start a new chat"
+            onChange={handleSearch}
+          />
         </div>
       </div>
 
       <div className="sidebar__chatlist">
-        {rooms.map((room) => (
+        {filteredRoms.map((room) => (
           <ChatItem key={room._id} data={room} onClick={selectGroup} />
         ))}
       </div>

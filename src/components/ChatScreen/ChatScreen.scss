@@ -6,6 +6,7 @@
   flex: 70%;
   position: relative;
   background-image: url("../../assets/whatsapp-bg.png");
+  overflow: hidden;
 
   &__header {
     background-color: $header-color;
@@ -17,10 +18,14 @@
     &__left {
       display: flex;
       align-items: center;
+      overflow: hidden;
 
       &__text {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        min-width: 0;
 
         &__name {
           text-transform: capitalize;
@@ -30,6 +35,10 @@
         &__member {
           font-size: 12px;
           color: $font-color-secondary;
+          flex: 1 1 auto;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
 
         span {
@@ -154,6 +163,42 @@
       background-color: $green;
       color: white;
       cursor: pointer;
+    }
+  }
+
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 12px;
+    border-radius: 100px;
+    color: WHITE;
+    background-color: transparentize($color: $green, $amount: 0.5);
+  }
+
+  &__empty {
+    flex-direction: column;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #262d31;
+
+    img {
+      object-fit: contain;
+      height: 180px;
+      margin-bottom: 20px;
+    }
+
+    &__t1 {
+      color: $font-color;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    &__t2 {
+      color: $font-color-secondary;
     }
   }
 }
