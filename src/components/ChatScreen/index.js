@@ -40,6 +40,7 @@ function ChatScreen() {
     socket.on("new-user-joined", (data) => {
       console.log(data);
       if (selectedGroup) {
+        if (data.split(" ")[0] !== selectedGroup._id) return;
         getRoomDetail();
       }
     });
@@ -47,8 +48,8 @@ function ChatScreen() {
 
   useEffect(() => {
     console.log(selectedGroup);
-
     if (selectedGroup) {
+      setMessages([]);
       socket.emit("join-room", selectedGroup._id);
       getRoomDetail();
       setRoomDetail(selectedGroup);
@@ -163,7 +164,7 @@ function ChatScreen() {
           </div>
 
           <div className="chat__body">
-            {messages?.map((item) => {
+            {(checkIfUserJoinedThisRoom ? messages : []).map((item) => {
               return (
                 <div
                   key={item._id}
